@@ -17,11 +17,30 @@ public class Duke {
         Scanner reader = new Scanner(System.in);
         String inp = reader.nextLine();
 
+        int counter=0;
+        String[] lists = new String[100];
+
         while (!inp.equals("bye")) {
-            System.out.println(line);
-            System.out.println(inp);
-            System.out.println(line);
-            inp = reader.nextLine();
+
+            if (inp.equals("list")) {
+                int itemNo = 1;
+                System.out.println(line);
+
+                for (int i = 0; i < counter; i++) {
+                    System.out.println(itemNo + ". " + lists[i]);
+                    itemNo++;
+                }
+
+                System.out.println(line);
+                inp = reader.nextLine();
+            } else {
+                lists[counter] = inp;
+                System.out.println(line);
+                System.out.println("added: " + inp);
+                System.out.println(line);
+                counter++;
+                inp = reader.nextLine();
+            }
         }
 
         System.out.println(line);
