@@ -17,24 +17,36 @@ public class Duke {
         Scanner reader = new Scanner(System.in);
         String inp = reader.nextLine();
 
-        int counter=0;
-        String[] lists = new String[100];
+        int counter = 0;
+        Task[] lists = new Task[100];
 
         while (!inp.equals("bye")) {
+
+            String[] check = inp.split(" ");
 
             if (inp.equals("list")) {
                 int itemNo = 1;
                 System.out.println(line);
 
                 for (int i = 0; i < counter; i++) {
-                    System.out.println(itemNo + ". " + lists[i]);
+                    System.out.println( itemNo + ". " + "[" + lists[i].getStatusIcon() + "] "
+                            + lists[i].getDescription());
                     itemNo++;
                 }
 
                 System.out.println(line);
                 inp = reader.nextLine();
+
+            } else if (check[0].equals("done")) {
+                int num = Integer.parseInt(check[1]) - 1;
+                lists[num].markAsDone();
+                System.out.println(line);
+                System.out.println("Nice! I've marked this task as done:\n"
+                        + "[" + lists[num].getStatusIcon() + "] " + lists[num].getDescription());
+                System.out.println(line);
+                inp = reader.nextLine();
             } else {
-                lists[counter] = inp;
+                lists[counter] = new Task (inp);
                 System.out.println(line);
                 System.out.println("added: " + inp);
                 System.out.println(line);
