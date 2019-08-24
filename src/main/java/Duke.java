@@ -22,15 +22,15 @@ public class Duke {
 
         while (!inp.equals("bye")) {
 
-            String[] check = inp.split(" ");
+            String[] check = inp.split(" ", 2);
 
             if (inp.equals("list")) {
+
                 int itemNo = 1;
                 System.out.println(line);
 
                 for (int i = 0; i < counter; i++) {
-                    System.out.println( itemNo + ". " + "[" + lists[i].getStatusIcon() + "] "
-                            + lists[i].getDescription());
+                    System.out.println( itemNo + ". " + lists[i].toString());
                     itemNo++;
                 }
 
@@ -38,20 +38,46 @@ public class Duke {
                 inp = reader.nextLine();
 
             } else if (check[0].equals("done")) {
+
                 int num = Integer.parseInt(check[1]) - 1;
                 lists[num].markAsDone();
                 System.out.println(line);
-                System.out.println("Nice! I've marked this task as done:\n"
-                        + "[" + lists[num].getStatusIcon() + "] " + lists[num].getDescription());
+                System.out.println("Nice! I've marked this task as done:\n" + lists[num].toString());
                 System.out.println(line);
                 inp = reader.nextLine();
-            } else {
-                lists[counter] = new Task (inp);
+
+            } else if (check[0].equals("todo")) {
+
+                lists[counter] = new ToDo(check[1]);
                 System.out.println(line);
-                System.out.println("added: " + inp);
+                System.out.println("Got it. I've added this task:\n  " + lists[counter].toString()
+                        + "\nNow you have " + (counter + 1) + " tasks in the list.");
                 System.out.println(line);
                 counter++;
                 inp = reader.nextLine();
+
+            } else if (check[0].equals("deadline")) {
+
+                check = check[1].split(" /by ", 2);
+                lists[counter] = new Deadline(check[0], check[1]);
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:\n  " + lists[counter].toString()
+                        + "\nNow you have " + (counter+1) + " tasks in the list.");
+                System.out.println(line);
+                counter++;
+                inp = reader.nextLine();
+
+            } else if (check[0].equals("event")) {
+
+                check = check[1].split(" /at ", 2);
+                lists[counter] = new Event(check[0], check[1]);
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:\n  " + lists[counter].toString()
+                        + "\nNow you have " + (counter+1) + " tasks in the list.");
+                System.out.println(line);
+                counter++;
+                inp = reader.nextLine();
+
             }
         }
 
