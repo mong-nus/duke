@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -21,61 +22,47 @@ public class Duke {
         Task[] lists = new Task[100];
 
         while (!inp.equals("bye")) {
+            try {
 
-            String[] check = inp.split(" ", 2);
+                checkEmpty(inp);
 
-            if (inp.equals("list")) {
+                String[] check = inp.split(" ", 2);
 
-                int itemNo = 1;
-                System.out.println(line);
+                if (inp.equals("list")) {
+                    listAllItems(lists, counter, line);
+                    inp = reader.nextLine();
 
-                for (int i = 0; i < counter; i++) {
-                    System.out.println( itemNo + ". " + lists[i].toString());
-                    itemNo++;
+                } else if (check[0].equals("done")) {
+                    makeDone(lists, counter, check, line);
+                    inp = reader.nextLine();
+
+                } else {
+
+                    addTask(lists, counter, check, line);
+                    counter++;
+                    inp = reader.nextLine();
+
                 }
 
+            } catch (DukeException errorMessage) {
+
+                System.out.println(line);
+                System.out.println(errorMessage.getMessage());
                 System.out.println(line);
                 inp = reader.nextLine();
 
-            } else if (check[0].equals("done")) {
+            } catch (NumberFormatException errorMessage) {
 
-                int num = Integer.parseInt(check[1]) - 1;
-                lists[num].markAsDone();
                 System.out.println(line);
-                System.out.println("Nice! I've marked this task as done:\n" + lists[num].toString());
+                System.out.println("\u2369 OOPS!!! only number are accepted after done");
                 System.out.println(line);
                 inp = reader.nextLine();
 
-            } else if (check[0].equals("todo")) {
+            } catch(ArrayIndexOutOfBoundsException errorMessage) {
 
-                lists[counter] = new ToDo(check[1]);
                 System.out.println(line);
-                System.out.println("Got it. I've added this task:\n  " + lists[counter].toString()
-                        + "\nNow you have " + (counter + 1) + " tasks in the list.");
+                System.out.println("\u2369 OOPS!!! Input format Invalid");
                 System.out.println(line);
-                counter++;
-                inp = reader.nextLine();
-
-            } else if (check[0].equals("deadline")) {
-
-                check = check[1].split(" /by ", 2);
-                lists[counter] = new Deadline(check[0], check[1]);
-                System.out.println(line);
-                System.out.println("Got it. I've added this task:\n  " + lists[counter].toString()
-                        + "\nNow you have " + (counter+1) + " tasks in the list.");
-                System.out.println(line);
-                counter++;
-                inp = reader.nextLine();
-
-            } else if (check[0].equals("event")) {
-
-                check = check[1].split(" /at ", 2);
-                lists[counter] = new Event(check[0], check[1]);
-                System.out.println(line);
-                System.out.println("Got it. I've added this task:\n  " + lists[counter].toString()
-                        + "\nNow you have " + (counter+1) + " tasks in the list.");
-                System.out.println(line);
-                counter++;
                 inp = reader.nextLine();
 
             }
@@ -86,4 +73,95 @@ public class Duke {
         System.out.println(line);
 
     }
+
+
+    private static void checkEmpty(String userInput) throws DukeException {
+        if (userInput.isEmpty()) {
+            throw new DukeException("There is no command given");
+        }
+    }
+
+    private static void listAllItems(Task[] listOfTasks, int arrCounter, String lineToPrint) throws DukeException {
+
+        if(arrCounter == 0) {
+            throw new DukeException("There is currently no task in the list");
+        }
+
+        int itemNo = 1;
+        System.out.println(lineToPrint);
+
+        for (int i = 0; i < arrCounter; i++) {
+            System.out.println( itemNo + ". " + listOfTasks[i].toString());
+            itemNo++;
+        }
+
+        System.out.println(lineToPrint);
+    }
+
+
+
+    private static void makeDone(Task[] listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
+
+        int num = Integer.parseInt(userInput[1]) - 1;
+
+        if ((num < 0) || (num > (arrCounter - 1))) {
+            throw new DukeException("Digit provided is out of range");
+        }
+
+        listOfTasks[num].markAsDone();
+        System.out.println(lineToPrint);
+        System.out.println("Nice! I've marked this task as done:\n" + listOfTasks[num].toString());
+        System.out.println(lineToPrint);
+    }
+
+    private static void addTask(Task[] listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
+
+        if (userInput[0].equals("todo")) {
+
+            if (userInput[1].isBlank()) {
+                throw new DukeException("Description cannot be blank or space only");
+            }
+
+            listOfTasks[arrCounter] = new ToDo(userInput[1]);
+            System.out.println(lineToPrint);
+            System.out.println("Got it. I've added this task:\n  " + listOfTasks[arrCounter].toString()
+                    + "\nNow you have " + (arrCounter + 1) + " tasks in the list.");
+            System.out.println(lineToPrint);
+
+
+        } else if (userInput[0].equals("deadline")) {
+
+            userInput = userInput[1].split(" /by ", 2);
+
+            if (userInput[0].isBlank() || userInput[1].isBlank()) {
+                throw new DukeException("Description or date cannot be blank or space only");
+            }
+
+            listOfTasks[arrCounter] = new Deadline(userInput[0], userInput[1]);
+            System.out.println(lineToPrint);
+            System.out.println("Got it. I've added this task:\n  " + listOfTasks[arrCounter].toString()
+                    + "\nNow you have " + (arrCounter + 1) + " tasks in the list.");
+            System.out.println(lineToPrint);
+
+        } else if (userInput[0].equals("event")) {
+
+            userInput = userInput[1].split(" /at ", 2);
+
+            if (userInput[0].isBlank() || userInput[1].isBlank()) {
+                throw new DukeException("Description or date cannot be blank or space only");
+            }
+
+            listOfTasks[arrCounter] = new Event(userInput[0], userInput[1]);
+            System.out.println(lineToPrint);
+            System.out.println("Got it. I've added this task:\n  " + listOfTasks[arrCounter].toString()
+                    + "\nNow you have " + (arrCounter + 1) + " tasks in the list.");
+            System.out.println(lineToPrint);
+
+        } else {
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+
+
 }
