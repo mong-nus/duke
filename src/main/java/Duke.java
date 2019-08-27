@@ -1,4 +1,8 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.PrintWriter;
 
 public class Duke {
 
@@ -11,15 +15,18 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         String line = "__________________________________________________";
+        int counter = 0;
+        Task[] lists = new Task[100];
+        System.out.println(line);
+        counter = readFile(lists);
+        System.out.println(line);
+
         System.out.println(line);
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
         System.out.println(line);
 
         Scanner reader = new Scanner(System.in);
         String inp = reader.nextLine();
-
-        int counter = 0;
-        Task[] lists = new Task[100];
 
         while (!inp.equals("bye")) {
             try {
@@ -34,12 +41,14 @@ public class Duke {
 
                 } else if (check[0].equals("done")) {
                     makeDone(lists, counter, check, line);
+                    writeFile(lists, counter);
                     inp = reader.nextLine();
 
                 } else {
 
                     addTask(lists, counter, check, line);
                     counter++;
+                    writeFile(lists, counter);
                     inp = reader.nextLine();
 
                 }
@@ -75,13 +84,13 @@ public class Duke {
     }
 
 
-    private static void checkEmpty(String userInput) throws DukeException {
+    public static void checkEmpty(String userInput) throws DukeException {
         if (userInput.isEmpty()) {
             throw new DukeException("There is no command given");
         }
     }
 
-    private static void listAllItems(Task[] listOfTasks, int arrCounter, String lineToPrint) throws DukeException {
+    public static void listAllItems(Task[] listOfTasks, int arrCounter, String lineToPrint) throws DukeException {
 
         if(arrCounter == 0) {
             throw new DukeException("There is currently no task in the list");
@@ -100,7 +109,7 @@ public class Duke {
 
 
 
-    private static void makeDone(Task[] listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
+    public static void makeDone(Task[] listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
 
         int num = Integer.parseInt(userInput[1]) - 1;
 
@@ -114,7 +123,7 @@ public class Duke {
         System.out.println(lineToPrint);
     }
 
-    private static void addTask(Task[] listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
+    public static void addTask(Task[] listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
 
         if (userInput[0].equals("todo")) {
 
@@ -160,6 +169,113 @@ public class Duke {
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    public static int readFile(Task[] listOfTasks) {
+        System.out.println("Reading Task List ... \n");
+        int count = 0;
+        File file = new File("data");
+
+        if (!file.isDirectory()) {
+            System.out.println("Folder does not exist. Creating folder data now.\n");
+            file.mkdir();
+        }
+
+        file = new File("data\\duke.txt");
+
+        try {
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+
+                String[] data = scanner.nextLine().split(" \\| ", 2);
+
+                if (data[0].equals("T")) {
+                    data=data[1].split(" \\| ", 2);
+
+                    if (data[0].equals("1")) {
+                        data = data[1].split(" \\| ", 2);
+                        listOfTasks[count] = new ToDo(data[1]);
+                        listOfTasks[count].setDone();
+                    } else {
+                        data = data[1].split(" \\| ", 2);
+                        listOfTasks[count] = new ToDo(data[1]);
+                    }
+                    count++;
+
+                } else if (data[0].equals("D")) {
+                    data=data[1].split(" \\| ", 2);
+
+                    if (data[0].equals("1")) {
+                        data=data[1].split(" \\| ", 2);
+                        int lengthOfDescription = Integer.parseInt(data[0]);
+
+                        String describe = data[1].substring(0, lengthOfDescription);
+                        String date = data[1].substring(lengthOfDescription+3);
+
+                        listOfTasks[count] = new Deadline(describe, date);
+                        listOfTasks[count].setDone();
+                    } else {
+                        data=data[1].split(" \\| ", 2);
+                        int lengthOfDescription = Integer.parseInt(data[0]);
+
+                        String describe = data[1].substring(0, lengthOfDescription);
+                        String date = data[1].substring(lengthOfDescription+3);
+
+                        listOfTasks[count] = new Deadline(describe, date);
+                    }
+                    count++;
+                } else if (data[0].equals("E")) {
+                    data=data[1].split(" \\| ", 2);
+
+                    if (data[0].equals("1")) {
+                        data=data[1].split(" \\| ", 2);
+                        int lengthOfDescription = Integer.parseInt(data[0]);
+
+                        String describe = data[1].substring(0, lengthOfDescription);
+                        String date = data[1].substring(lengthOfDescription+3);
+
+                        listOfTasks[count] = new Event(describe, date);
+                        listOfTasks[count].setDone();
+                    } else {
+                        data=data[1].split(" \\| ", 2);
+                        int lengthOfDescription = Integer.parseInt(data[0]);
+
+                        String describe = data[1].substring(0, lengthOfDescription);
+                        String date = data[1].substring(lengthOfDescription+3);
+
+                        listOfTasks[count] = new Event(describe, date);
+                    }
+                    count++;
+                }
+
+
+            }
+        } catch(FileNotFoundException error) {
+            System.out.println("There is no file to read. File will be created when there is new records.\n");
+        }
+
+        System.out.println("Read from file completed\n");
+        return count;
+    }
+
+    public static void writeFile(Task[] listOfTasks, int count) {
+
+        File file = new File ("data\\duke.txt");
+
+        try{
+
+            PrintWriter output = new PrintWriter(file);
+
+            for (int i = 0; i < count; i++) {
+                output.println(listOfTasks[i].insertFile());
+            }
+            output.close();
+        } catch(IOException error) {
+            System.out.println("There is a output error");
+        }
+
+
     }
 
 
