@@ -1,5 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.PrintWriter;
@@ -19,7 +21,7 @@ public class Duke {
 
         String line = "__________________________________________________";
         int counter = 0;
-        Task[] lists = new Task[100];
+        List<Task> lists = new ArrayList<Task>();
         System.out.println(line);
         counter = readFile(lists);
         System.out.println(line);
@@ -93,7 +95,7 @@ public class Duke {
         }
     }
 
-    public static void listAllItems(Task[] listOfTasks, int arrCounter, String lineToPrint) throws DukeException {
+    public static void listAllItems(List<Task> listOfTasks, int arrCounter, String lineToPrint) throws DukeException {
 
         if(arrCounter == 0) {
             throw new DukeException("There is currently no task in the list");
@@ -103,7 +105,7 @@ public class Duke {
         System.out.println(lineToPrint);
 
         for (int i = 0; i < arrCounter; i++) {
-            System.out.println( itemNo + ". " + listOfTasks[i].toString());
+            System.out.println( itemNo + ". " + listOfTasks.get(i).toString());
             itemNo++;
         }
 
@@ -112,7 +114,7 @@ public class Duke {
 
 
 
-    public static void makeDone(Task[] listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
+    public static void makeDone(List<Task> listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
 
         int num = Integer.parseInt(userInput[1]) - 1;
 
@@ -120,13 +122,13 @@ public class Duke {
             throw new DukeException("Digit provided is out of range");
         }
 
-        listOfTasks[num].markAsDone();
+        listOfTasks.get(num).markAsDone();
         System.out.println(lineToPrint);
-        System.out.println("Nice! I've marked this task as done:\n" + listOfTasks[num].toString());
+        System.out.println("Nice! I've marked this task as done:\n" + listOfTasks.get(num).toString());
         System.out.println(lineToPrint);
     }
 
-    public static void addTask(Task[] listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
+    public static void addTask(List<Task> listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
 
         if (userInput[0].equals("todo")) {
 
@@ -134,9 +136,11 @@ public class Duke {
                 throw new DukeException("Description cannot be blank or space only");
             }
 
-            listOfTasks[arrCounter] = new ToDo(userInput[1]);
+            Task currTask = new ToDo(userInput[1]);
+
+            listOfTasks.add(currTask);
             System.out.println(lineToPrint);
-            System.out.println("Got it. I've added this task:\n  " + listOfTasks[arrCounter].toString()
+            System.out.println("Got it. I've added this task:\n  " + listOfTasks.get(arrCounter).toString()
                     + "\nNow you have " + (arrCounter + 1) + " tasks in the list.");
             System.out.println(lineToPrint);
 
@@ -154,9 +158,11 @@ public class Duke {
                 LocalDateTime today = LocalDateTime.now().withNano(0).withSecond(0).withHour(23).withMinute(59);
                 LocalDateTime tomorrow = today.plusDays(1);
 
-                listOfTasks[arrCounter] = new Deadline(userInput[0], tomorrow);
+                Task currTask = new Deadline(userInput[0], tomorrow);
+
+                listOfTasks.add(currTask);
                 System.out.println(lineToPrint);
-                System.out.println("Got it. I've added this task:\n  " + listOfTasks[arrCounter].toString()
+                System.out.println("Got it. I've added this task:\n  " + listOfTasks.get(arrCounter).toString()
                         + "\nNow you have " + (arrCounter + 1) + " tasks in the list.");
                 System.out.println(lineToPrint);
 
@@ -166,9 +172,10 @@ public class Duke {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
                 try {
                     LocalDateTime dateTime = LocalDateTime.parse(userInput[1], formatter);
-                    listOfTasks[arrCounter] = new Deadline(userInput[0], dateTime);
+                    Task currTask = new Deadline(userInput[0], dateTime);
+                    listOfTasks.add(currTask);
                     System.out.println(lineToPrint);
-                    System.out.println("Got it. I've added this task:\n  " + listOfTasks[arrCounter].toString()
+                    System.out.println("Got it. I've added this task:\n  " + listOfTasks.get(arrCounter).toString()
                             + "\nNow you have " + (arrCounter + 1) + " tasks in the list.");
                     System.out.println(lineToPrint);
                 } catch (DateTimeParseException error) {
@@ -190,9 +197,11 @@ public class Duke {
                 LocalDateTime today = LocalDateTime.now().withNano(0).withSecond(0).withHour(13).withMinute(30);
                 LocalDateTime tomorrow = today.plusDays(1);
 
-                listOfTasks[arrCounter] = new Event(userInput[0], tomorrow);
+                Task currTask = new Event(userInput[0], tomorrow);
+
+                listOfTasks.add(currTask);
                 System.out.println(lineToPrint);
-                System.out.println("Got it. I've added this task:\n  " + listOfTasks[arrCounter].toString()
+                System.out.println("Got it. I've added this task:\n  " + listOfTasks.get(arrCounter).toString()
                         + "\nNow you have " + (arrCounter + 1) + " tasks in the list.");
                 System.out.println(lineToPrint);
 
@@ -202,9 +211,11 @@ public class Duke {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
                 try {
                     LocalDateTime dateTime = LocalDateTime.parse(userInput[1], formatter);
-                    listOfTasks[arrCounter] = new Event(userInput[0], dateTime);
+
+                    Task currTask = new Event(userInput[0], dateTime);
+                    listOfTasks.add(currTask);
                     System.out.println(lineToPrint);
-                    System.out.println("Got it. I've added this task:\n  " + listOfTasks[arrCounter].toString()
+                    System.out.println("Got it. I've added this task:\n  " + listOfTasks.get(arrCounter).toString()
                             + "\nNow you have " + (arrCounter + 1) + " tasks in the list.");
                     System.out.println(lineToPrint);
                 } catch (DateTimeParseException error) {
@@ -218,7 +229,7 @@ public class Duke {
         }
     }
 
-    public static int readFile(Task[] listOfTasks) {
+    public static int readFile(List<Task> listOfTasks) {
         System.out.println("Reading Task List ... \n");
         int count = 0;
         File file = new File("data");
@@ -242,11 +253,13 @@ public class Duke {
 
                     if (data[0].equals("1")) {
                         data = data[1].split(" \\| ", 2);
-                        listOfTasks[count] = new ToDo(data[1]);
-                        listOfTasks[count].setDone();
+                        Task currTask = new ToDo(data[1]);
+                        listOfTasks.add(currTask);
+                        listOfTasks.get(count).setDone();
                     } else {
                         data = data[1].split(" \\| ", 2);
-                        listOfTasks[count] = new ToDo(data[1]);
+                        Task currTask = new ToDo(data[1]);
+                        listOfTasks.add(currTask);
                     }
                     count++;
 
@@ -261,8 +274,9 @@ public class Duke {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
                         try {
                             LocalDateTime dateTime = LocalDateTime.parse(data[1].substring(lengthOfDescription+3), formatter);
-                            listOfTasks[count] = new Deadline(describe, dateTime);
-                            listOfTasks[count].setDone();
+                            Task currTask = new Deadline(describe, dateTime);
+                            listOfTasks.add(currTask);
+                            listOfTasks.get(count).setDone();
                         } catch (DateTimeParseException error) {
                             System.out.println("Reading Fail at item No. " + count + "\n");
                             return count;
@@ -276,7 +290,8 @@ public class Duke {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
                         try {
                             LocalDateTime dateTime = LocalDateTime.parse(data[1].substring(lengthOfDescription+3), formatter);
-                            listOfTasks[count] = new Deadline(describe, dateTime);
+                            Task currTask = new Deadline(describe, dateTime);
+                            listOfTasks.add(currTask);
                         } catch (DateTimeParseException error) {
                             System.out.println("Reading Fail at item No. " + count + "\n");
                             return count;
@@ -294,8 +309,9 @@ public class Duke {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
                         try {
                             LocalDateTime dateTime = LocalDateTime.parse(data[1].substring(lengthOfDescription+3), formatter);
-                            listOfTasks[count] = new Event(describe, dateTime);
-                            listOfTasks[count].setDone();
+                            Task currTask = new Event(describe, dateTime);
+                            listOfTasks.add(currTask);
+                            listOfTasks.get(count).setDone();
                         } catch (DateTimeParseException error) {
                             System.out.println("Reading Fail at item No. " + count + "\n");
                             return count;
@@ -308,7 +324,8 @@ public class Duke {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
                         try {
                             LocalDateTime dateTime = LocalDateTime.parse(data[1].substring(lengthOfDescription+3), formatter);
-                            listOfTasks[count] = new Event(describe, dateTime);
+                            Task currTask = new Event(describe, dateTime);
+                            listOfTasks.add(currTask);
                         } catch (DateTimeParseException error) {
                             System.out.println("Reading Fail at item No. " + count + "\n");
                             return count;
@@ -325,7 +342,7 @@ public class Duke {
         return count;
     }
 
-    public static void writeFile(Task[] listOfTasks, int count) {
+    public static void writeFile(List<Task> listOfTasks, int count) {
 
         File file = new File ("data\\duke.txt");
 
@@ -334,7 +351,7 @@ public class Duke {
             PrintWriter output = new PrintWriter(file);
 
             for (int i = 0; i < count; i++) {
-                output.println(listOfTasks[i].insertFile());
+                output.println(listOfTasks.get(i).insertFile());
             }
             output.close();
         } catch(IOException error) {
@@ -343,7 +360,5 @@ public class Duke {
 
 
     }
-
-
 
 }
