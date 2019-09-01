@@ -49,8 +49,13 @@ public class Duke {
                     writeFile(lists, counter);
                     inp = reader.nextLine();
 
-                } else {
+                } else if (check[0].equals("delete")) {
+                    deleteItem(lists, counter, check, line);
+                    counter--;
+                    writeFile(lists, counter);
+                    inp = reader.nextLine();
 
+                } else {
                     addTask(lists, counter, check, line);
                     counter++;
                     writeFile(lists, counter);
@@ -68,7 +73,7 @@ public class Duke {
             } catch (NumberFormatException errorMessage) {
 
                 System.out.println(line);
-                System.out.println("\u2369 OOPS!!! only number are accepted after done");
+                System.out.println("\u2369 OOPS!!! only number are accepted after done or delete");
                 System.out.println(line);
                 inp = reader.nextLine();
 
@@ -127,6 +132,24 @@ public class Duke {
         System.out.println("Nice! I've marked this task as done:\n" + listOfTasks.get(num).toString());
         System.out.println(lineToPrint);
     }
+    public static void deleteItem(List<Task> listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
+
+        int num = Integer.parseInt(userInput[1]) - 1;
+
+        if ((num < 0) || (num > (arrCounter - 1))) {
+            throw new DukeException("Digit provided is out of range");
+        }
+
+        Task currTask = listOfTasks.get(num);
+        listOfTasks.remove(num);
+
+        System.out.println(lineToPrint);
+        System.out.println("Noted. I've removed this task:\n  " + currTask.toString()
+                + "\nNow you have " + (arrCounter - 1) + " tasks in the list.");
+        System.out.println(lineToPrint);
+
+    }
+
 
     public static void addTask(List<Task> listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
 
