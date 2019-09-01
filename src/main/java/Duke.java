@@ -48,11 +48,13 @@ public class Duke {
                     makeDone(lists, counter, check, line);
                     writeFile(lists, counter);
                     inp = reader.nextLine();
-
                 } else if (check[0].equals("delete")) {
                     deleteItem(lists, counter, check, line);
                     counter--;
                     writeFile(lists, counter);
+                    inp = reader.nextLine();
+                } else if (check[0].equals("find")) {
+                    listFindItems(lists, counter, check, line);
                     inp = reader.nextLine();
 
                 } else {
@@ -382,6 +384,32 @@ public class Duke {
         }
 
 
+    }
+
+    public static void listFindItems(List<Task> listOfTasks, int arrCounter, String[] userInput, String lineToPrint) throws DukeException {
+        if (userInput[1].isBlank()) {
+            throw new DukeException("Description cannot be blank or space only");
+        }
+
+        CharSequence seq = userInput[1];
+        int itemNo = 1;
+
+        System.out.println(lineToPrint);
+        System.out.println("Here are the matching tasks in your list:");
+
+        for (int i = 0; i < arrCounter; i++) {
+            String toBeSearch = listOfTasks.get(i).toString();
+            boolean bool = toBeSearch.contains(seq);
+            if (bool == true) {
+                System.out.println(itemNo + ". " + listOfTasks.get(i).toString());
+                itemNo++;
+            }
+        }
+        if(itemNo==1)
+        {
+            System.out.println("No items matched");
+        }
+        System.out.println(lineToPrint);
     }
 
 }
