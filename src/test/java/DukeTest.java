@@ -36,5 +36,6 @@ public class DukeTest {
         parseTest.testParseEventValid();
         parseTest.testParseEventTomorrow();
         parseTest.testParseEventInvalid();
+        parseTest.testParseCheckEmpty();
     }
 }

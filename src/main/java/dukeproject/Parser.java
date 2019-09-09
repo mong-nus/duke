@@ -105,7 +105,8 @@ public class Parser {
                         tasking.addTask(allTask, currTask, display, store);
 
                     } catch (DateTimeParseException error) {
-                        throw new DukeException("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) E.g. 21-01-2020 03:25, tomorrow is accepted as well");
+                        throw new DukeException("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) " +
+                                "E.g. 21-01-2020 03:25, tomorrow is accepted as well");
                     }
                 }
             } else if (check[0].equals("event")) {
@@ -136,7 +137,8 @@ public class Parser {
                         tasking.addTask(allTask, currTask, display, store);
 
                     } catch (DateTimeParseException error) {
-                        throw new DukeException("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) E.g. 21-01-2020 03:25, tomorrow is accepted as well");
+                        throw new DukeException("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) " +
+                                "E.g. 21-01-2020 03:25, tomorrow is accepted as well");
                     }
 
                 }

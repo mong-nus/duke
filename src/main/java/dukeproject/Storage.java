@@ -131,17 +131,27 @@ public class Storage {
      * @param listOfTasks Task object that contains all the different tasks such as event, deadline and todo
      */
     public void writeFile(List<Task> listOfTasks) {
-        File file = new File ("data\\duke.txt");
 
-        try{
-            PrintWriter output = new PrintWriter(file);
+        File file = new File("data\\duke.txt");
+
+        PrintWriter output = null;
+        try {
+            output = new PrintWriter(file);
 
             for (int i = 0; i < listOfTasks.size(); i++) {
                 output.println(listOfTasks.get(i).insertFile());
             }
-            output.close();
-        } catch(IOException error) {
+
+        } catch (IOException error) {
+
             System.out.println("There is a output error");
+
+        } finally {
+
+            if (output != null) {
+                output.close();
+            }
+
         }
     }
 }

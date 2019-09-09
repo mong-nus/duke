@@ -12,6 +12,9 @@ public class Duke {
     private Parser parse;
     private List<Task> lists;
 
+    /**
+     * Initializes the variables of the Duke class
+     */
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage();

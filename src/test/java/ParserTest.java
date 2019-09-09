@@ -118,5 +118,11 @@ public class ParserTest {
         deleteList.deleteTaskItem(lists);
     }
 
+    @Test
+    void testParseCheckEmpty() {
+        input= "";
+        DukeException err = assertThrows(DukeException.class, () -> parse.checkEmpty(input));
+        assertEquals("⍩ OOPS!!! There is no command given", err.getMessage());
+    }
 
 }
