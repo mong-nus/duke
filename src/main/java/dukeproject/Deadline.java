@@ -9,7 +9,7 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Initializes the variables of the Event class
+     * Initializes the variables of the Deadline class
      *
      * @param inputDescription the description of the event
      * @param inputBy date and time of the event

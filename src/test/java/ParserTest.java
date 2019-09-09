@@ -118,6 +118,9 @@ public class ParserTest {
         deleteList.deleteTaskItem(lists);
     }
 
+    /**
+     * Checks whether the program parse correctly when the input is empty
+     */
     @Test
     void testParseCheckEmpty() {
         input= "";

@@ -3,7 +3,7 @@ package dukeproject;
 public class ToDo extends Task {
 
     /**
-     * Initializes the variables of the Event class
+     * Initializes the variables of the ToDo class
      *
      * @param inputDescription The description of the event
      */

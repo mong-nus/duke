@@ -6,9 +6,9 @@ import java.util.List;
 public class TaskList {
 
     /**
-     * Marks the task to be done
+     * Makes done the task that has been completed
      *
-     * @param listOfTasks Task object that contains all the different tasks such as event, deadline and todo
+     * @param listOfTasks Contains all the task that is currently in the list
      * @param num Specifies the task within the list to be marked done
      * @param output Ui object used to call the display function for user to view task information
      * @param store storage object used to call the write to file function
@@ -21,9 +21,9 @@ public class TaskList {
     }
 
     /**
-     * Deletes the specified item from the list of tasks
+     * Deletes the specified item from the parameter listOfTasks
      *
-     * @param listOfTasks Task object that contains all the different tasks such as event, deadline and todo
+     * @param listOfTasks Contains all the task that is currently in the list
      * @param num Specifies the task within the list to be deleted
      * @param output Ui object used to call the display function for user to view task information
      * @param store storage object used to call the write to file function
@@ -36,9 +36,9 @@ public class TaskList {
     }
 
     /**
-     * Adds new task to the list of tasks
+     * Adds new task to the parameter listOfTasks
      *
-     * @param listOfTasks Task object that contains all the different tasks such as event, deadline and todo
+     * @param listOfTasks Contains all the task that is currently in the list
      * @param toBeAdded Contains the new task to be added to the list of tasks
      * @param output Ui object used to call the display function for user to view task information
      * @param store storage object used to call the write to file function
@@ -52,7 +52,7 @@ public class TaskList {
     /**
      * Finds task that matches user input
      *
-     * @param listOfTasks Task object that contains all the different tasks such as event, deadline and todo
+     * @param listOfTasks Contains all the task that is currently in the list
      * @param userInput Contains the string to be matched
      * @param output Ui object used to call the display function for user to view task information
      */

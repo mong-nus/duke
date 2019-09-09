@@ -15,7 +15,7 @@ public class StorageTest {
     Ui ui = new Ui();
 
     /**
-     * Checks whether the program run correctly when there are no file to read from
+     * Checks whether the program run correctly when there are no file to read
      */
     @Test
     void readFromEmptyFile() {
@@ -25,7 +25,7 @@ public class StorageTest {
     }
 
     /**
-     * Checks whether the program run correctly when there are file to read from
+     * Checks whether the program run correctly when there are file to read
      */
     @Test
     void readFromFileWithTasks() {

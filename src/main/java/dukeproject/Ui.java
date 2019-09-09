@@ -62,7 +62,7 @@ public class Ui {
     /**
      * Prints task that matches the search
      *
-     * @param listOfTasks Contains all the task that is currently in the list that is to be searched
+     * @param listOfTasks Contains all the task that was found from the search
      */
     public void listFindItems(List<Task> listOfTasks) {
 

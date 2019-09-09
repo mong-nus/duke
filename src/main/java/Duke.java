@@ -26,7 +26,6 @@ public class Duke {
 
     /**
      * run the duke program
-     *
      */
     public void run() {
 

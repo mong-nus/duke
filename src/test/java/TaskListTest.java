@@ -65,7 +65,7 @@ public class TaskListTest {
      * Checks whether the program correctly add the deadline task to the list
      */
     @Test
-    void testAddTaskDeadline() throws DukeException {
+    void testAddTaskDeadline() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         try {
             LocalDateTime dateTime = LocalDateTime.parse("01-01-2020 23:59", formatter);
@@ -73,7 +73,8 @@ public class TaskListTest {
             tasks.addTask(lists, currTask, ui, storage);
 
         } catch (DateTimeParseException error) {
-            throw new DukeException("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) E.g. 21-01-2020 03:25, tomorrow is accepted as well");
+            System.out.println("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) " +
+                    "E.g. 21-01-2020 03:25, tomorrow is accepted as well");
         }
         compare = lists.get(0).toString();
         expected = "[D][\u2718] Project 1 (by: 2020-01-01T23:59)";
@@ -85,7 +86,7 @@ public class TaskListTest {
      * Checks whether the program correctly make done the deadline task in the list
      */
     @Test
-    void testMakeDoneDeadlineTask() throws DukeException {
+    void testMakeDoneDeadlineTask() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         try {
             LocalDateTime dateTime = LocalDateTime.parse("01-01-2020 23:59", formatter);
@@ -93,7 +94,8 @@ public class TaskListTest {
             tasks.addTask(lists, currTask, ui, storage);
 
         } catch (DateTimeParseException error) {
-            throw new DukeException("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) E.g. 21-01-2020 03:25, tomorrow is accepted as well");
+            System.out.println("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) " +
+                    "E.g. 21-01-2020 03:25, tomorrow is accepted as well");
         }
         tasks.makeDone(lists, 0, ui, storage);
         compare = lists.get(0).toString();
@@ -106,7 +108,7 @@ public class TaskListTest {
      * Checks whether the program correctly delete the deadline task in the list
      */
     @Test
-    void testDeleteDeadlineTask() throws DukeException {
+    void testDeleteDeadlineTask() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         try {
             LocalDateTime dateTime = LocalDateTime.parse("01-01-2020 23:59", formatter);
@@ -114,7 +116,8 @@ public class TaskListTest {
             tasks.addTask(lists, currTask, ui, storage);
 
         } catch (DateTimeParseException error) {
-            throw new DukeException("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) E.g. 21-01-2020 03:25, tomorrow is accepted as well");
+            System.out.println("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) " +
+                    "E.g. 21-01-2020 03:25, tomorrow is accepted as well");
         }
         assertEquals(lists.size(), 1);
         tasks.deleteItem(lists, 0, ui, storage);
@@ -126,7 +129,7 @@ public class TaskListTest {
      * Checks whether the program correctly add the event task to the list
      */
     @Test
-    void testAddTaskEvent() throws DukeException {
+    void testAddTaskEvent() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         try {
             LocalDateTime dateTime = LocalDateTime.parse("01-01-2020 23:59", formatter);
@@ -134,7 +137,8 @@ public class TaskListTest {
             tasks.addTask(lists, currTask, ui, storage);
 
         } catch (DateTimeParseException error) {
-            throw new DukeException("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) E.g. 21-01-2020 03:25, tomorrow is accepted as well");
+            System.out.println("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) " +
+                    "E.g. 21-01-2020 03:25, tomorrow is accepted as well");
         }
         compare = lists.get(0).toString();
         expected = "[E][\u2718] Meeting 1 (at: 2020-01-01T23:59)";
@@ -147,7 +151,7 @@ public class TaskListTest {
      * Checks whether the program correctly make done the event task in the list
      */
     @Test
-    void testMakeDoneEventTask() throws DukeException {
+    void testMakeDoneEventTask() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         try {
             LocalDateTime dateTime = LocalDateTime.parse("01-01-2020 23:59", formatter);
@@ -155,7 +159,8 @@ public class TaskListTest {
             tasks.addTask(lists, currTask, ui, storage);
 
         } catch (DateTimeParseException error) {
-            throw new DukeException("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) E.g. 21-01-2020 03:25, tomorrow is accepted as well");
+            System.out.println("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) " +
+                    "E.g. 21-01-2020 03:25, tomorrow is accepted as well");
         }
         tasks.makeDone(lists, 0, ui, storage);
         compare = lists.get(0).toString();
@@ -168,7 +173,7 @@ public class TaskListTest {
      * Checks whether the program correctly delete the event task in the list
      */
     @Test
-    void testDeleteEventTask() throws DukeException {
+    void testDeleteEventTask() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         try {
             LocalDateTime dateTime = LocalDateTime.parse("01-01-2020 23:59", formatter);
@@ -176,7 +181,8 @@ public class TaskListTest {
             tasks.addTask(lists, currTask, ui, storage);
 
         } catch (DateTimeParseException error) {
-            throw new DukeException("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) E.g. 21-01-2020 03:25, tomorrow is accepted as well");
+            System.out.println("Invalid date. Please enter in the format of dd-MM-yyyy HH:mm (24HR) " +
+                    "E.g. 21-01-2020 03:25, tomorrow is accepted as well");
         }
         assertEquals(lists.size(), 1);
         tasks.deleteItem(lists, 0, ui, storage);

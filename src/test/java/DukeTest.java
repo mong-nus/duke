@@ -9,7 +9,7 @@ public class DukeTest {
      * Calls all the test case in TaskListTest
      */
     @Test
-    void testTaskListTestCase() throws DukeException {
+    void testTaskListTestCase() {
         TaskListTest tasklistTest = new TaskListTest();
         tasklistTest.testAddTaskToDo();
         tasklistTest.testMakeDoneToDoTask();

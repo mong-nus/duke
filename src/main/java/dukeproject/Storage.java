@@ -13,11 +13,11 @@ import java.util.Scanner;
 public class Storage {
 
     /**
-     * Reads and Stores the list of task from the duke.txt file
+     * Reads from the duke.txt file and stores the list of tasks into the parameter listOfTasks
      * Outer if condition will check the type of command being entered e.g. todo, list
      * Inner if condition will check the status of the task whether it done or not done
      *
-     * @param listOfTasks Task object that contains all the different tasks such as event, deadline and todo
+     * @param listOfTasks List of Task object that contains all the different tasks such as event, deadline and todo
      * @param display Ui object used to call the display function for user to view task information
      */
     public void readFile(List<Task> listOfTasks, Ui display) {
@@ -128,7 +128,7 @@ public class Storage {
     /**
      * Writes to the duke.txt file when there is changes
      *
-     * @param listOfTasks Task object that contains all the different tasks such as event, deadline and todo
+     * @param listOfTasks Contains all the task that is currently in the list
      */
     public void writeFile(List<Task> listOfTasks) {
 
