@@ -1,9 +1,17 @@
+package dukeproject;
+
 public abstract class Task {
 
     protected String description;
     protected boolean isDone;
     protected char typeOfTask;
 
+    /**
+     * Initializes the variables of the Task class
+     *
+     * @param type Contains either T, D or E depending on the type of task
+     * @param userDescription Contains the description of the task provided by the user
+     */
     public Task(char type, String userDescription) {
         this.typeOfTask = type;
         this.description = userDescription;
@@ -11,8 +19,7 @@ public abstract class Task {
     }
 
     /**
-     * return a tick or a cross symbol for displaying of the status
-     *
+     * Returns a tick or a cross symbol for displaying of the status
      */
     public String getStatusIcon() {
 
@@ -20,8 +27,7 @@ public abstract class Task {
     }
 
     /**
-     * return a T, D or E depending on the type of task
-     *
+     * Returns T, D or E depending on the type of task
      */
     public char getTypeOfTask() {
 
@@ -29,8 +35,7 @@ public abstract class Task {
     }
 
     /**
-     * return the description of the task
-     *
+     * Returns the description of the task
      */
     public String getDescription() {
 
@@ -38,8 +43,7 @@ public abstract class Task {
     }
 
     /**
-     * set the status to done
-     *
+     * Sets the status to done
      */
     public void markAsDone() {
 
@@ -47,7 +51,7 @@ public abstract class Task {
     }
 
     /**
-     * return the status of the task
+     * Returns the status of the task
      *
      */
     public boolean getIsDone() {
@@ -56,8 +60,7 @@ public abstract class Task {
     }
 
     /**
-     * abstract method to be override by sub class
-     *
+     * Declares abstract method to be override by sub class
      */
     public abstract String insertFile();
 }

@@ -1,3 +1,5 @@
+package dukeproject;
+
 import java.util.List;
 
 public class Ui {
@@ -16,8 +18,7 @@ public class Ui {
     }
 
     /**
-     * starting message when duke is being run
-     *
+     * Displays the starting message when duke is being run
      */
     public void startDuke() {
         System.out.println("Hello from\n" + logo);
@@ -27,8 +28,7 @@ public class Ui {
     }
 
     /**
-     * ending message displayed when "bye" is entered, program will also be exited
-     *
+     * Displays the ending message when "bye" is entered, program will also be exited
      */
     public void end() {
         System.out.println(line);
@@ -38,8 +38,10 @@ public class Ui {
     }
 
     /**
-     * print all task in the list
+     * Prints all task in the list
      *
+     * @param listOfTasks Contains all the tasks to be printed
+     * @throws DukeException If listOfTasks is empty or ==0.
      */
     public void listAllItems (List<Task> listOfTasks) throws DukeException {
         if(listOfTasks.size() == 0) {
@@ -58,8 +60,9 @@ public class Ui {
     }
 
     /**
-     * print task that matches the search
+     * Prints task that matches the search
      *
+     * @param listOfTasks Contains all the task that is currently in the list that is to be searched
      */
     public void listFindItems(List<Task> listOfTasks) {
 
@@ -70,7 +73,7 @@ public class Ui {
 
         if (listOfTasks.size() == 0) {
 
-                System.out.println("No items matched");
+            System.out.println("No items matched");
         } else {
 
             for (int i = 0; i < listOfTasks.size(); i++) {
@@ -84,8 +87,10 @@ public class Ui {
     }
 
     /**
-     * print the tasked that was just mark done
+     * Prints the task that was just mark done
      *
+     * @param listOfTasks Contains all the task that is currently in the list
+     * @param num Specifies the task to be print after being marked done
      */
     public void taskMarked(List<Task> listOfTasks, int num) {
         System.out.println(line);
@@ -95,8 +100,10 @@ public class Ui {
     }
 
     /**
-     * print the task that was just deleted
+     * Prints the task that is getting deleted
      *
+     * @param listOfTasks Contains all the task that is currently in the list
+     * @param theTask Contains the task being deleted
      */
     public void taskDeleted(List<Task> listOfTasks, Task theTask) {
         System.out.println(line);
@@ -107,8 +114,9 @@ public class Ui {
     }
 
     /**
-     * print the task that was just added
+     * Prints the task that was just added to the list
      *
+     * @param listOfTasks Contains all the task that is currently in the list
      */
     public void taskAdded(List<Task> listOfTasks) {
         System.out.println(line);
@@ -119,8 +127,9 @@ public class Ui {
     }
 
     /**
-     * print the error message
+     * Prints the error message
      *
+     * @param error Contains the error message
      */
     public void printError(String error) {
         System.out.println(line);
@@ -129,8 +138,7 @@ public class Ui {
     }
 
     /**
-     * print the error message
-     *
+     * Prints the starting message when the program is reading from file
      */
     public void readStart() {
         System.out.println(line);
@@ -138,15 +146,11 @@ public class Ui {
     }
 
     /**
-     * display message when reading of file is completed
-     *
+     * Prints the ending message when reading of file is completed
      */
     public void readEnd() {
         System.out.println("Read Operation completed\n");
         System.out.println(line);
     }
-
-
-
 
 }

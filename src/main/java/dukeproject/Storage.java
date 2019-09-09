@@ -1,3 +1,5 @@
+package dukeproject;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,9 +13,12 @@ import java.util.Scanner;
 public class Storage {
 
     /**
-     * read and store the list of task from the duke.txt file
-     * outer if condition will check the type of command being entered e.g. todo, list
-     * inner if condition will check the status of the task whether it done or not done
+     * Reads and Stores the list of task from the duke.txt file
+     * Outer if condition will check the type of command being entered e.g. todo, list
+     * Inner if condition will check the status of the task whether it done or not done
+     *
+     * @param listOfTasks Task object that contains all the different tasks such as event, deadline and todo
+     * @param display Ui object used to call the display function for user to view task information
      */
     public void readFile(List<Task> listOfTasks, Ui display) {
         display.readStart();
@@ -121,8 +126,9 @@ public class Storage {
     }
 
     /**
-     * write to the duke.txt file when there is changes
+     * Writes to the duke.txt file when there is changes
      *
+     * @param listOfTasks Task object that contains all the different tasks such as event, deadline and todo
      */
     public void writeFile(List<Task> listOfTasks) {
         File file = new File ("data\\duke.txt");

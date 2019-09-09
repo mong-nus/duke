@@ -1,12 +1,19 @@
+package dukeproject;
+
 public class ToDo extends Task {
 
+    /**
+     * Initializes the variables of the Event class
+     *
+     * @param inputDescription The description of the event
+     */
     public ToDo(String inputDescription) {
+
         super('T', inputDescription);
     }
 
     /**
-     * return string to be display to user
-     *
+     * Returns the content of the task to be displayed to user
      */
     @Override
     public String toString() {
@@ -14,8 +21,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * return the string to be inserted into the file
-     *
+     * Returns the string to be inserted into the file
      */
     @Override
     public String insertFile() {

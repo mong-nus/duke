@@ -1,3 +1,5 @@
+package dukeproject;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -6,14 +8,19 @@ public class Event extends Task {
 
     protected LocalDateTime at;
 
+    /**
+     * Initializes the variables of the Event class
+     *
+     * @param inputDescription the description of the event
+     * @param inputAt date and time of the event
+     */
     public Event(String inputDescription, LocalDateTime inputAt) {
         super('E', inputDescription);
         this.at = inputAt;
     }
 
     /**
-     * return string to be display to user
-     *
+     * Returns the content of the task to be displayed to user
      */
     @Override
     public String toString() {
@@ -22,8 +29,7 @@ public class Event extends Task {
     }
 
     /**
-     * return the string to be inserted into the file
-     *
+     * Returns the string to be inserted into the file
      */
     @Override
     public String insertFile() {

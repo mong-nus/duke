@@ -1,3 +1,5 @@
+package dukeproject;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -6,8 +8,9 @@ import java.util.List;
 public class Parser {
 
     /**
-     * function to be called to check for empty input
+     * Checks whether the userinput is empty or blank
      *
+     * @param userInput contains the input entered by the user
      */
     public void checkEmpty(String userInput) throws DukeException {
         if (userInput.isEmpty()) {
@@ -16,8 +19,16 @@ public class Parser {
     }
 
     /**
-     * function to check for the command being entered and execute accordingly
+     * Parses the input entered by the user accordingly to execute the correct command
      *
+     * @param instruction inputs provided by the user
+     * @param store storage object used to call the write to file function
+     * @param display Ui object used to call the display function for user to view task information
+     * @param allTask Task object that contains all the different tasks such as event, deadline and todo
+     * @param tasking TaskList object used to execute different function such as add task and delete task
+     * @throws DukeException if input is empty or blank. if input contain invalid date format. if command is not recognize.
+     * @throws NumberFormatException if non-integer input is provided for done and delete command.
+     * @throws ArrayIndexOutOfBoundsException if input format of the command is invalid.
      */
     public void checkInstruction(String instruction, Storage store, Ui display, List<Task> allTask, TaskList tasking) {
 
